@@ -1,30 +1,39 @@
-const  session = require( '../middlewares/session/session.js');
-const   renderIndex  = require( '../middlewares/renderIndex.js');
-const   destroySession  = require( '../middlewares/session/destroySession.js');
-const   increaseSession  = require( '../middlewares/session/increaseSession.js');
-const   initSession  = require( '../middlewares/session/initSession.js');
+const uuid = require('uuid');
 
-function addRoutes(app) {
-    app.set('view engine', 'ejs');
+const createTodoMW = require('../middleware/createUser');
+const geTodosMW = require('../middleware/getTodos');
+const getTodoMW = require('../middleware/getTodo');
+const deleteTodoMW = require('../middleware/deleteTodo');
+const updateTodoMW = require('../middleware/updateTodo');
+const searchMW = require('../middleware/search');
 
-    app.use(session(app));
+function addRoutes(app, db, todoModel) {
+    const objRep = {
+        todoModel,
+        db,
+        uuid
+    };
+    // API
+    app.get('/api/todo',
+        geTodosMW(objRep),
+        (req, res, next) => res.json(res.locals.todos));
+    app.get('/api/todo/:id',
+        getTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.post('/api/todo',
+        createTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.delete('/api/todo/:id',
+        getTodoMW(objRep),
+        deleteTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.put('/api/todo/:id',
+        getTodoMW(objRep),
+        updateTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.post('/api/search',
+        searchMW(objRep));
 
-    app.use(initSession);
-
-
-    app.get('/', renderIndex),
-    app.post('/increasesession', increaseSession);
-    app.post('/destroysession', destroySession);
-// default error handler middleware
-    app.use((err, req, res, next) => {
-        if (res.headersSent) {
-            return next(err)
-        }
-        console.error(err);
-        res.status(500);
-        res.render('error', { error: err });
-        next();
-    });
 
 }
 
