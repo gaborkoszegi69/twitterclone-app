@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Session handling</title>
+</head>
+
+<body>
+<h1>Counter: <%= counter %>
+</h1>
+<h2>Session ID: <%= sessionId %>
+</h2>
+
+<form method="POST" action="/increasesession">
+    <button>Increase Counter</button>
+</form>
+
+<form method="POST" action="/destroysession">
+    <button>Create New Session</button>
+</form>
+</body>
+
+</html>

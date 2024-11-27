@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-sessionfeladat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gaborkoszegi69/nodojs-todo.git"
+  },
+  "private": true,
+  "author": "Gábor Készegi <gabor.koszegi69@gmail.com>",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "uuid": "^8.3.2"
+  }
+}
