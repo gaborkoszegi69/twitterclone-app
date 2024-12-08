@@ -1,38 +1,86 @@
-const uuid = require('uuid');
+const uuid = require('uuid'),
+swaggerJSDoc = require('swagger-jsdoc'),
+swaggerUi = require('swagger-ui-express');
+const  session = require( '../middlewares/session/session.js');
+const  logoutMW = require( '../middlewares/session/logoutMW');
+const   renderMW  = require( '../middlewares/renderMW.js');
+const  initSession = require( '../middlewares/session/initSession');
 
-const createTodoMW = require('../middleware/createUser');
-const geTodosMW = require('../middleware/getTodos');
-const getTodoMW = require('../middleware/getTodo');
-const deleteTodoMW = require('../middleware/deleteTodo');
-const updateTodoMW = require('../middleware/updateTodo');
-const searchMW = require('../middleware/search');
+const modifyPSMW = require('../middlewares/modifyPSMW');
+const createTwitterMW = require('../middlewares/createTwitterMW');
+const getUsersMW = require('../middlewares/getUsersMW');
+const geTodosMW = require('../middlewares/getTodos');
+const getTodoMW = require('../middlewares/getTodo');
 
-function addRoutes(app, db, todoModel) {
+const deleteTodoMW = require('../middlewares/deleteTodo');
+const updateTodoMW = require('../middlewares/updateTodo');
+const searchMW = require('../middlewares/search');
+
+function addRoutes(app, db, userModel,twitterModel) {
     const objRep = {
-        todoModel,
+        userModel,
+        twitterModel,
         db,
         uuid
     };
+    app.set('view engine', 'ejs');
+
+    app.use(session(app));
+
+    app.use(initSession);
     // API
-    app.get('/api/todo',
-        geTodosMW(objRep),
-        (req, res, next) => res.json(res.locals.todos));
-    app.get('/api/todo/:id',
+    app.get('/',
+        getUsersMW(objRep),
+        (req, res, next) => res.json(res.locals.users));
+    app.get('/login',
         getTodoMW(objRep),
         (req, res, next) => res.json(res.locals.todo));
-    app.post('/api/todo',
-        createTodoMW(objRep),
-        (req, res, next) => res.json(res.locals.todo));
-    app.delete('/api/todo/:id',
+    app.post('/login',
         getTodoMW(objRep),
-        deleteTodoMW(objRep),
         (req, res, next) => res.json(res.locals.todo));
-    app.put('/api/todo/:id',
+
+    app.get('/logout',
+        logoutMW,
+        (req, res, next)=> res.json(res.locals.todo));
+
+    app.get('/password/:id/:secret',
         getTodoMW(objRep),
-        updateTodoMW(objRep),
         (req, res, next) => res.json(res.locals.todo));
-    app.post('/api/search',
-        searchMW(objRep));
+    app.post('/password/:id/:secret',
+      //  createTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.get('/reg',
+        renderMW(objRep, 'NewUser'));
+    app.post('/reg',
+       // createTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.get('/profil/:id',
+        getTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.post('/profil/:id',
+        //createTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.get('/forgetpassword/:tokenid',
+        getTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.post('/forgetpassword',
+        //createTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.get('/msg/edit/:id',
+        getTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.post('/msg/edit/:id',
+        //createTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.get('/msg/insert',
+        getTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.post('/msg/insert',
+        ///createTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
+    app.get('/msg/delete/:id',
+        getTodoMW(objRep),
+        (req, res, next) => res.json(res.locals.todo));
 
 
 }

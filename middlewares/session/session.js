@@ -1,11 +1,9 @@
 const session = require( 'express-session');
-
 module.exports =   (app) => {
-    const isProd = app.get('env') === 'production';
-    const isTest = app.get('env') === 'test';
-
+    const isProd = process.env["ENV "]=== 'production';
+    const isTest = process.env["ENV "]=== 'test';
     const sessionOptions = {
-        secret: 'oEu0YoTdm9e-p_nQMpsqQZB53Z2ksehP',
+        secret: process.env.SECRET,
         name: 'Session',
         cookie: {
             path: '/',
@@ -14,6 +12,7 @@ module.exports =   (app) => {
         resave: false,
         saveUninitialized: false,
     };
+
 
     if (isProd) {
         console.log('Running in prodn mode');

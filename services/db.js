@@ -2,9 +2,9 @@ const loki = require('lokijs');
 let db =  false;
 let userModel =false;
 let twitterModel =false;
-
+db =  new loki('twitter.db');
 function initDatabase(cb) {
-    db =  new loki('library.db');
+
     db.loadDatabase({}, err => {
         if (err){
             return cb(err);
