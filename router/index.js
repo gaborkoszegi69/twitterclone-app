@@ -1,10 +1,12 @@
 const uuid = require('uuid'),
-swaggerJSDoc = require('swagger-jsdoc'),
+ swaggerJSDoc = require('swagger-jsdoc'),
 swaggerUi = require('swagger-ui-express');
 const  session = require( '../middlewares/session/session.js');
 const  logoutMW = require( '../middlewares/session/logoutMW');
 const   renderMW  = require( '../middlewares/renderMW.js');
 const  initSession = require( '../middlewares/session/initSession');
+const createUserMW = require('../middlewares/createUserMW');
+const  loginMW = require( '../middlewares/session/loginMW');
 
 const modifyPSMW = require('../middlewares/modifyPSMW');
 const createTwitterMW = require('../middlewares/createTwitterMW');
@@ -32,28 +34,28 @@ function addRoutes(app, db, userModel,twitterModel) {
     app.get('/',
         getUsersMW(objRep),
         (req, res, next) => res.json(res.locals.users));
-    app.get('/login',
-        getTodoMW(objRep),
-        (req, res, next) => res.json(res.locals.todo));
-    app.post('/login',
-        getTodoMW(objRep),
-        (req, res, next) => res.json(res.locals.todo));
 
     app.get('/logout',
         logoutMW,
         (req, res, next)=> res.json(res.locals.todo));
 
-    app.get('/password/:id/:secret',
+  /*  app.get('/password/:id/:secret',
         getTodoMW(objRep),
         (req, res, next) => res.json(res.locals.todo));
     app.post('/password/:id/:secret',
       //  createTodoMW(objRep),
-        (req, res, next) => res.json(res.locals.todo));
+        (req, res, next) => res.json(res.locals.todo));*/
     app.get('/reg',
         renderMW(objRep, 'NewUser'));
     app.post('/reg',
-       // createTodoMW(objRep),
-        (req, res, next) => res.json(res.locals.todo));
+        createUserMW(objRep),
+        (req, res, next) => res.json(res.locals.user));
+    app.get('/login',
+        renderMW(objRep, 'login'));
+    app.post('/login',
+        loginMW(objRep),
+        (req, res, next) => res.json(res.body));
+/*
     app.get('/profil/:id',
         getTodoMW(objRep),
         (req, res, next) => res.json(res.locals.todo));
@@ -82,7 +84,7 @@ function addRoutes(app, db, userModel,twitterModel) {
         getTodoMW(objRep),
         (req, res, next) => res.json(res.locals.todo));
 
-
+*/
 }
 
 module.exports = addRoutes;

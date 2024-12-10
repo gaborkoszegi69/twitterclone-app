@@ -16,7 +16,9 @@
   "author": "Gábor Készegi <gabor.koszegi69@gmail.com>",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
     "crypto": "^1.0.1",
+    "cryptr": "^6.3.0",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.9",
     "express": "^4.19.2",

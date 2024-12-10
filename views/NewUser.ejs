@@ -2,14 +2,22 @@
 <h2><%= typeof user === 'undefined' ? 'Új felhasználó' : 'Felhasználó módosítása' %></h2>
 <form method="POST">
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="usr_username" name="usr_username"
-               placeholder=" " value="<%= typeof user === 'undefined' ? '' : book.usr_username %>">
+        <input type="text" class="form-control" id="user.usr_username" name="usr_username"
+               placeholder=" " value="<%= typeof user === 'undefined' ? '' : user.usr_username %>">
         <label for="usr_username">Felhsználó név</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="usr_emailadress" name="usr_emailadress"
-               placeholder=" " value="<%= typeof user === 'undefined' ? '' : book.usr_emailadress %>">
+        <input type="text" class="form-control" id="user.usr_emailadress" name="usr_emailadress"
+               placeholder=" " value="<%= typeof user === 'undefined' ? '' : user.usr_emailadress %>">
         <label for="usr_emailadress">E-mail cím</label>
+        <br>
+        <label for="password">Jelszó:</label>
+        <input type="password" id="password" name="usr_password" required>
+        <br>
+        <label for="password">Jelszó megerősítés :</label>
+        <input type="password" id="verifypassword" name="usr_veryfypassword" required>
+        <br>
+
     </div>
     <div class="d-flex gap-2">
         <input type="submit" class="btn btn-primary flex-fill" value="Save">
