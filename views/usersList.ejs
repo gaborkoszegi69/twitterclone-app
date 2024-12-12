@@ -1,0 +1,27 @@
+<%- include('header') %>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Felhasználó név</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% users.forEach( item => { %>
+        <tr>
+            <td><%= item.usr_username %></td>
+            <td><%= item.usr_emailadress %></td>
+            <td>
+                <a href="/twitters/<%= item.usr_id %>" class="btn btn-primary btn-sm">Üzenetek</a>
+                <a href="/deletebook/<%= item.usr_id %>" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
+<div class="form-floating flex-fill mb-2">
+    <input type="text" class="form-control form-control-sm" id="s" name="s" placeholder=" ">
+    <label for="s">Search</label>
+</div>
+<%- include('footer') %>

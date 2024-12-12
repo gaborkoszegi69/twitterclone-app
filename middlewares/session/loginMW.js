@@ -1,9 +1,8 @@
 const Cryptr = require('cryptr');
 
-module.exports =  (objRep) => {
-    const {userModel, db, uuid} = objRep;
+module.exports = (req, res, next) => {
     return async  (req, res, next) => {
-            console.log(req.body);
+           // console.log(req.body);
 
         if (typeof req.body.usr_username == 'undefined') {
             return res.status(400).json(req.body);
@@ -25,8 +24,13 @@ module.exports =  (objRep) => {
 
         // Session mentése
         req.session.userId = user.usr_id;
-        console.log(req.session.userId);
-        res.send({message: 'Sikeres bejelentkezés!'+req.body.usr_username});
+        req.session.save((err) => {
+            if (err) return next(err);
+//            res.redirect('/');
+            console.log(req.session.userId);
+            res.send({message: 'Sikeres bejelentkezés!'+req.body.usr_username});
+
+        });
 
     }
 }

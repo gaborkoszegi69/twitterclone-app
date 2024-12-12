@@ -1,7 +1,6 @@
 const Cryptr = require('cryptr');
-
-module.exports = (objRep) => {
-    const {userModel, db, uuid} = objRep;
+const uuid = require('uuid');
+module.exports = (req, res, next) => {
     return (req, res, next) => {
         if (typeof req.body.usr_username == 'undefined' ) {
             // error case

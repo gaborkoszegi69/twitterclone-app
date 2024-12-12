@@ -1,16 +1,15 @@
 const loki = require('lokijs');
-let db =  false;
-let userModel =false;
-let twitterModel =false;
-db =  new loki('twitter.db');
-function initDatabase(cb) {
+
+ db =  new loki(__dirname + '/../Data/users.db');
+ dbtwitter =  new loki(__dirname + '/../Data/twitters.db');
+function  initDatabase(cb) {
 
     db.loadDatabase({}, err => {
         if (err){
             return cb(err);
         }
 
-        let userModel = db.getCollection("users");
+        userModel =  db.getCollection("users");
         if (userModel === null) {
             userModel = db.addCollection("users",[
                 "usr_id",
@@ -32,10 +31,15 @@ function initDatabase(cb) {
         db.saveDatabase(err => {
             cb(err, {db, userModel});
         });
+    });
+    dbtwitter.loadDatabase({}, err => {
+        if (err){
+            return cb(err);
+        }
 
-        let twitterModel = db.getCollection("twitters");
+        twitterModel = dbtwitter.getCollection("twitters");
         if (twitterModel === null) {
-            twitterModel = db.addCollection("twitters",[
+            twitterModel = dbtwitter.addCollection("twitters",[
                 "twtr_id",
                 "twtr_usr_id",
                 "twtr_message",
@@ -46,10 +50,11 @@ function initDatabase(cb) {
             ]);
         }
 
-        db.saveDatabase(err => {
-            cb(err, {db, twitterModel});
+        dbtwitter.saveDatabase(err => {
+            cb(err, {dbtwitter, twitterModel});
         });
     });
+
 }
 
 module.exports.initDatabase = initDatabase;
