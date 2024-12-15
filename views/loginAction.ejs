@@ -1,0 +1,7 @@
+<tr>
+    <td>
+        <a href="/" class="btn btn-primary btn-sm">Home</a>
+        <a href="/login" class="btn btn-primary btn-sm">Login</a>
+    </td>
+    <%- typeof session_userId === 'undefined' ? include('regAction') : '' %>
+</tr>

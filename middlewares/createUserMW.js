@@ -19,8 +19,8 @@ module.exports = (req, res, next) => {
         const newUser = {
             usr_id: uuid.v4(),
             usr_username: req.body.usr_username,
-            /*usr_vezeteknev: req.body.user.usr_vezeteknev,
-            usr_keresztnev: req.body.user.usr_keresztnev,*/
+            usr_vezeteknev: req.body.user.usr_vezeteknev,
+            usr_keresztnev: req.body.user.usr_keresztnev,
             usr_emailadress: req.body.usr_emailadress,
             usr_token: "",
             usr_password:  cryptr.encrypt(req.body.usr_password),

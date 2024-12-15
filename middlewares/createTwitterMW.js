@@ -1,9 +1,6 @@
-module.exports = (objRep) => {
-    const {db,
-        dbtwitter,
-        userModel,
-        twitterModel,
-        uuid} = objRep;
+const uuid = require('uuid');
+module.exports = (req, res, next) => {
+
     return (req, res, next) => {
         if (typeof req.body.twtr_message == 'undefined' ) {
             // error case

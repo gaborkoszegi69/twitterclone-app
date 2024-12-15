@@ -23,14 +23,18 @@ module.exports = (req, res, next) => {
         }
 
         // Session mentése
+        req.session.counter++;
         req.session.userId = user.usr_id;
+        req.session.usr_keresztnev = user.usr_keresztnev;
+        req.session.usr_vezeteknev = user.usr_vezeteknev;
         req.session.save((err) => {
             if (err) return next(err);
-//            res.redirect('/');
-            console.log(req.session.userId);
-            res.send({message: 'Sikeres bejelentkezés!'+req.body.usr_username});
+            res.redirect('/');
+            //console.log(req.session.userId);
+            //res.send({message: 'Sikeres bejelentkezés!'+req.body.usr_username});
 
         });
+        console.log(req.session);
 
     }
 }

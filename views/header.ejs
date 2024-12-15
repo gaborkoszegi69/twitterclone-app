@@ -3,6 +3,7 @@
     <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -10,3 +11,4 @@
 <div class="container">
     <div class="row">
         <div class="col">
+<%- typeof session_userId === 'undefined' ? include('loginAction') : include('inloginuser') %>
