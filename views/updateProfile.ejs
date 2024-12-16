@@ -7,25 +7,24 @@
         <label for="usr_username">Felhsználó név</label>
     </div>
     <div class="form-floating mb-3">
-        <label for="usr_emailadress">E-mail cím</label>
+        <input type="text" class="form-control" id="user.usr_username" name="usr_username"
+               placeholder=" " value="<%= typeof user === 'undefined' ? '' : user.usr_username %>">
+        <label for="usr_username">Felhasználó név</label>
+    </div>
+    <div class="form-floating mb-3">
         <input type="text" class="form-control" id="user.usr_emailadress" name="usr_emailadress"
                placeholder=" " value="<%= typeof user === 'undefined' ? '' : user.usr_emailadress %>">
-        <br>
-        </div>
-        <div class="form-floating mb-3">
-        <label for="usr_vezeteknev">Vezeték név</label>
+        <label for="usr_emailadress">E-mail cím</label>
+    </div>
+    <div class="form-floating mb-3">
         <input type="text" class="form-control" id="user.usr_vezeteknev" name="usr_vezeteknev"
                placeholder=" " value="<%= typeof user === 'undefined' ? '' : user.usr_vezeteknev %>">
-        <br>
-        </div>
+        <label for="usr_vezeteknev">Vezetéknév</label>
+    </div>
     <div class="form-floating mb-3">
-
-        <label for="usr_keresztnev">Keresztnév</label>
         <input type="text" class="form-control" id="user.usr_keresztnev" name="usr_keresztnev"
                placeholder=" " value="<%= typeof user === 'undefined' ? '' : user.usr_keresztnev %>">
-
-        <br>
-
+        <label for="usr_keresztnev">Keresztnév</label>
     </div>
     <div class="d-flex gap-2">
         <input type="submit" class="btn btn-primary flex-fill" value="Save">

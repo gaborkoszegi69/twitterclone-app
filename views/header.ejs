@@ -11,4 +11,44 @@
 <div class="container">
     <div class="row">
         <div class="col">
-<%- typeof session_userId === 'undefined' ? include('loginAction') : include('inloginuser') %>
+            <% if (typeof session_userId != 'undefined' ) { %>
+                <% if (session_inlogin == 'login' ) {  %>
+                    <div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col"> Bejelentkezett felhasználó</th>
+                                <th scope="col"></th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <%= typeof session_usr_vezeteknev === 'undefined' ? '' : session_usr_vezeteknev+' '+session_usr_keresztnev %>
+                                </td>
+                                <td>
+                                    <a href="/logout" class="btn btn-primary btn-sm">Logout</a>
+                                    <a href="/" class="btn btn-primary btn-sm">Home</a>
+                                    <a href="/profil" class="btn btn-primary btn-sm">Profil</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                <% } %>
+                <% if(!session_inlogin == 'logout' ) { %>
+                        <tr>
+                            <td>
+                                <a href="/" class="btn btn-primary btn-sm">Home</a>
+                                <a href="/login" class="btn btn-primary btn-sm">Login</a>
+                            </td>
+                            <%- typeof session_userId === 'undefined' ? include('regAction') : '' %>
+                        </tr>
+                <% } %>
+            <% }else{ %>
+                    <tr>
+                        <td>
+                            <a href="/" class="btn btn-primary btn-sm">Home</a>
+                            <a href="/login" class="btn btn-primary btn-sm">Login</a>
+                        </td>
+                        <%- typeof session_userId === 'undefined' ? include('regAction') : '' %>
+                    </tr>
+             <%    } %>

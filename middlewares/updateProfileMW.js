@@ -13,10 +13,14 @@ module.exports = (req, res, next)=> {
                 console.log(updateUser);
             userModel.update(updateUser);
             return db.saveDatabase((err) => {
-                //err?
-                res.locals.user = updateUser;
                 return next();
             });
+            req.session.usr_keresztnev = req.body.usr_keresztnev;
+            req.session.usr_vezeteknev = req.body.usr_vezeteknev;
+            req.session.save((err) => {
+
+            });
+
         }
         return next();
     }

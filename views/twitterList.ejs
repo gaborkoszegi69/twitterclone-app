@@ -15,7 +15,7 @@
     <tbody>
     <% twitters.forEach( item => { %>
         <tr>
-            <td><%= item.twtr_usr_id %></td>
+            <td><%=   user.usr_vezeteknev+' '+user.usr_keresztnev %></td>
             <td><%= item.twtr_message %></td>
             <td>
               <% if (typeof session_userId != 'undefined' ) { %>
@@ -31,6 +31,9 @@
     <% }) %>
     </tbody>
 </table>
-<%- typeof session_userId === 'undefined' ? '' : include('newTitterButton') %>
-
+<% if (typeof session_userId != 'undefined' ) { %>
+    <% if (session_userId === params_twtr_usr_id) { %>
+     <%- typeof session_userId === 'undefined' ? '' : include('newTitterButton') %>
+    <% } %>
+<% } %>
 <%- include('footer') %>

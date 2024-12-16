@@ -1,8 +1,9 @@
-module.exports = (objRep) => {
-    const {userModel} = objRep;
+module.exports = (req, res, next) => {
     return (req, res, next) => {
-        res.locals.users = userModel.find();
+        console.log(req.params);
+        res.locals.user =  userModel.findOne({usr_token: req.params.tokenid });
+        res.locals.user =  userModel.find();
+        console.log(res.locals.user);
         return next();
-
     }
 }

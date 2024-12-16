@@ -8,8 +8,9 @@
         <label for="usr_username">Felhasználó név</label>
     </div>
     <div class="form-floating mb-3">
+
+        <input type="password" class="form-control" name="usr_password" required>
         <label for="password">Jelszó:</label>
-        <input type="password"  name="usr_password" required>
         <br>
 
     </div>
@@ -17,6 +18,8 @@
         <input type="submit" class="btn btn-primary flex-fill" value="Bejelentkezés">
         <a class="btn btn-warning flex-fill" href="/">Cancel</a>
     </div>
-
+    <div class="d-flex gap-2">
+        <a class="btn btn-warning flex-fill" href="/forgetpassword">Elfelejtett a jelszó</a>
+    </div>
 </form>
 <%- include('footer') %>

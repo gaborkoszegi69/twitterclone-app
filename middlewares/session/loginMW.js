@@ -5,36 +5,61 @@ module.exports = (req, res, next) => {
            // console.log(req.body);
 
         if (typeof req.body.usr_username == 'undefined') {
-            return res.status(400).json(req.body);
+            req.session.ErrorMsg ='Felhasználónév szükséges!';
+            console.log(req.session.ErrorMsg);
+            req.session.save((err) => {
+                if (err) return next(err);
+
+            });
+            return next();
         }
 
         if (!req.body.usr_username || !req.body.usr_password) {
-            return res.status(400).send('Felhasználónév és jelszó szükséges!');
+            req.session.ErrorMsg ='Felhasználónév és jelszó szükséges!';
+            console.log(req.session.ErrorMsg);
+            req.session.save((err) => {
+                if (err) return next(err);
+            });
+            return next();
         }
         const user = userModel.findOne({usr_username:req.body.usr_username });
         if (!user) {
-            //return res.status(401).send('Hibás felhasználwwónév vagy jelszó!');
-            return res.status(401).send('Nincs felhasználó');
-        }
-        const cryptr = new Cryptr(process.env.HASSECRET);
-        const isPasswordValid =  req.body.usr_password ==cryptr.decrypt(user.usr_password);
-        if (!isPasswordValid) {
-            return res.status(401).send('Hibás felhaesználónév vagy jelszó!');
-        }
-
-        // Session mentése
-        req.session.counter++;
-        req.session.userId = user.usr_id;
-        req.session.usr_keresztnev = user.usr_keresztnev;
-        req.session.usr_vezeteknev = user.usr_vezeteknev;
-        req.session.save((err) => {
-            if (err) return next(err);
+            req.session.ErrorMsg ='Nincs felhasználó';
+            console.log(req.session.ErrorMsg);
+            req.session.save((err) => {
+                if (err) return next(err);
+            });
             res.redirect('/');
-            //console.log(req.session.userId);
-            //res.send({message: 'Sikeres bejelentkezés!'+req.body.usr_username});
+        } else {
+                const cryptr = new Cryptr(process.env.HASSECRET);
+                const isPasswordValid =  req.body.usr_password ==cryptr.decrypt(user.usr_password);
+                if (!isPasswordValid) {
+                    req.session.ErrorMsg = 'Hibás felhaesználónév vagy jelszó!';
+                    req.session.save((err) => {
+                        if (err) return next(err);
 
-        });
-        console.log(req.session);
+                    });
+                    return next();
+                } else {
+                    req.session.inlogin = 'login';
+
+
+                    // Session mentése
+                    req.session.counter++;
+                    req.session.userId = user.usr_id;
+                    req.session.usr_keresztnev = user.usr_keresztnev;
+                    req.session.usr_vezeteknev = user.usr_vezeteknev;
+
+                    req.session.save((err) => {
+                        //if (err) return next(err);
+                        return next();
+                        //console.log(req.session.userId);
+                        //res.send({message: 'Sikeres bejelentkezés!'+req.body.usr_username});
+
+                    });
+                }
+        }
+        //console.log(req.session);
 
     }
 }

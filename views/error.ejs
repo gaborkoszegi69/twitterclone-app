@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Session handling</title>
-</head>
-
-<body>
-<h1>ERROR</h1>
-<h2>Details are hidden in production. Please check the logs</h2>
-</body>
-
-</html>
+<div>
+    <label> <%= typeof session_ErrorMsg === 'undefined' ? '' : session_ErrorMsg %></label>
+    <a href="/" class="btn btn-primary btn-sm">Home</a>
+</div>

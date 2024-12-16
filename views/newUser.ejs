@@ -4,33 +4,30 @@
     <div class="form-floating mb-3">
         <input type="text" class="form-control" id="user.usr_username" name="usr_username"
                placeholder=" " value="<%= typeof user === 'undefined' ? '' : user.usr_username %>">
-        <label for="usr_username">Felhsználó név</label>
+        <label for="usr_username">Felhasználó név</label>
     </div>
     <div class="form-floating mb-3">
-        <label for="usr_emailadress">E-mail cím</label>
         <input type="text" class="form-control" id="user.usr_emailadress" name="usr_emailadress"
                placeholder=" " value="<%= typeof user === 'undefined' ? '' : user.usr_emailadress %>">
         <label for="usr_emailadress">E-mail cím</label>
-        <br>
+    </div>
+    <div class="form-floating mb-3">
         <input type="text" class="form-control" id="user.usr_vezeteknev" name="usr_vezeteknev"
                placeholder=" " value="<%= typeof user === 'undefined' ? '' : user.usr_vezeteknev %>">
-        <br>
-        <label for="usr_vezeteknev">Vezeték név</label>
-        <input type="text" class="form-control" id="user.usr_emailadress" name="usr_emailadress"
-               placeholder=" " value="<%= typeof user === 'undefined' ? '' : user.usr_emailadress %>">
-        <br>
-        <label for="usr_keresztnev">E-mail cím</label>
+        <label for="usr_vezeteknev">Vezetéknév</label>
+    </div>
+    <div class="form-floating mb-3">
         <input type="text" class="form-control" id="user.usr_keresztnev" name="usr_keresztnev"
                placeholder=" " value="<%= typeof user === 'undefined' ? '' : user.usr_keresztnev %>">
-
-        <br>
+        <label for="usr_keresztnev">Keresztnév</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control"  id="password" name="usr_password" required>
         <label for="password">Jelszó:</label>
-        <input type="password" id="password" name="usr_password" required>
-        <br>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="password"class="form-control"  id="verifypassword" name="usr_veryfypassword" required>
         <label for="password">Jelszó megerősítés :</label>
-        <input type="password" id="verifypassword" name="usr_veryfypassword" required>
-        <br>
-
     </div>
     <div class="d-flex gap-2">
         <input type="submit" class="btn btn-primary flex-fill" value="Save">
