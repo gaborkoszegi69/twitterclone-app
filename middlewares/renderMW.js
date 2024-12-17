@@ -1,4 +1,4 @@
-module.exports = (objRep, templateFile) => {
+module.exports = ( templateFile) => {
     return (req, res, next) => {
 
         return res.render(templateFile, res.locals);

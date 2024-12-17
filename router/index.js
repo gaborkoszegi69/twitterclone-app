@@ -12,7 +12,7 @@ const updateTwitterMW = require('../middlewares/updateTwitterMW');
 const deleteTwitterMW = require('../middlewares/deleteTwitterMW');
 const  authMW = require( '../middlewares/session/authMW');
 const  sendForgetMW = require( '../middlewares/sendForgetMW');
-
+const getPSMMW = require('../middlewares/getPSMMW');
 const modifyPSMW = require('../middlewares/modifyPSMW');
 const getUsersMW = require('../middlewares/getUsersMW');
 const getProfileMW = require('../middlewares/getProfileMW');
@@ -21,16 +21,6 @@ const getTwittersMW = require('../middlewares/getTwittersMW');
 const getAllTwittersMW = require('../middlewares/getAllTwittersMW');
 const getTwitterMW = require('../middlewares/getTwitterMW');
     function addRoutes(app, db, dbtwitter, userModel,twitterModel) {
-      const objRepUser = {
-        db,
-        userModel,
-        uuid
-    };
-        const objRepTwitter = {
-            dbtwitter,
-            twitterModel,
-            uuid
-        };
 
     app.set('view engine', 'ejs');
 
@@ -40,51 +30,45 @@ const getTwitterMW = require('../middlewares/getTwitterMW');
     // API
     app.get('/',
         authMW(),
-        getUsersMW(objRepUser),
-       renderMW(objRepUser, 'usersList'));
+        getUsersMW(),
+       renderMW( 'usersList'));
 
     app.get('/logout',
         logoutMW,
         authMW(),
         (req, res, next) => res.redirect("/"));
 
-  /*  app.get('/password/:id/:secret',
-        getTodoMW(objRep),
-        (req, res, next) => res.json(res.locals.todo));
-    app.post('/password/:id/:secret',
-      //  createTodoMW(objRep),
-        (req, res, next) => res.json(res.locals.todo));*/
     app.get('/reg',
         authMW(),
-        renderMW(objRepUser, 'newUser'));
+        renderMW( 'newUser'));
     app.post('/reg',
         createUserMW(),
-        (req, res, next) => res.redirect("/"));;
+        (req, res, next) => res.redirect("/login"));;
     app.get('/login',
-        renderMW(objRepUser, 'login'));
+        renderMW('login'));
     app.post('/login',
         loginMW(),
         (req, res, next) => res.redirect("/"));
     app.get('/twitters/:twtr_usr_id',
         authMW(),
         getTwittersMW(),
-        renderMW(objRepTwitter, 'twitterList'));
+        renderMW('twitterList'));
         //(req, res, next) => res.json(res.locals.todo));
     app.get('/alltwitters',
         authMW(),
         getAllTwittersMW(),
-        renderMW(objRepTwitter, 'twitterList'));
+        renderMW( 'twitterList'));
         //(req, res, next) => res.json(res.locals.todo));
 
     app.get('/newtwitter',
-        renderMW(objRepTwitter, 'newTwitter'));
+        renderMW( 'newTwitter'));
     app.post('/newtwitter',
         createTwitterMW(),
-        (req, res, next) => res.json(res.locals.twitter));
+        (req, res, next) => res.redirect("/"));
     app.get('/msg/edit/:id',
         authMW(),
         getTwitterMW(),
-        renderMW(objRepTwitter, 'editTwitter'));;
+        renderMW( 'editTwitter'));;
     app.post('/msg/edit/:id',
         authMW(),
         updateTwitterMW(),
@@ -92,26 +76,29 @@ const getTwitterMW = require('../middlewares/getTwitterMW');
     app.get('/msg/delete/:id',
          authMW(),
          getTwitterMW(),
-         renderMW(objRepTwitter, 'deleteTwitter'));
+         renderMW('deleteTwitter'));
     app.post('/msg/delete/:id',
             authMW(),
             deleteTwitterMW(),
             (req, res, next) => res.redirect("/"));
     app.get('/profil',
         getProfileMW(),
-        renderMW(objRepTwitter, 'updateProfile'));
+        renderMW( 'updateProfile'));
     app.post('/profil',
         updateProfileMW(),
         (req, res, next) => res.redirect("/"));
   app.get('/forgetpassword',
-      renderMW(objRepTwitter, 'sendFrogetPasswird'));
+      renderMW( 'sendFrogetPasswird'));
   app.post('/forgetpassword',
           sendForgetMW(),
           (req, res, next) => res.redirect("/"));
 
-   app.get('/forget/:tokenid',
-           modifyPSMW(),
-       renderMW(objRepTwitter, 'updateProfile'));
+  app.get('/forget/:tokenid',
+      getPSMMW(),
+       renderMW( 'changePassowrd'));
+  app.post('/forget/:tokenid',
+       modifyPSMW(),
+      (req, res, next) => res.redirect("/login"));
 }
 
 module.exports = addRoutes;

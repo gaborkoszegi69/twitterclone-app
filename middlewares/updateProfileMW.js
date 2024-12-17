@@ -7,9 +7,12 @@ module.exports = (req, res, next)=> {
             updateUser = userModel.findOne({usr_id: req.session.userId});
             console.log(req.session.userId);
             console.log(updateUser);
+            var datetime = new Date();
             updateUser.usr_emailadress = req.body.usr_emailadress,
                 updateUser.usr_vezeteknev = req.body.usr_vezeteknev,
                 updateUser.usr_keresztnev = req.body.usr_keresztnev,
+                updateUser.usr_updatedate =datetime,
+                updateUser.usr_forignmessage= req.body.usr_forignmessage,
                 console.log(updateUser);
             userModel.update(updateUser);
             return db.saveDatabase((err) => {

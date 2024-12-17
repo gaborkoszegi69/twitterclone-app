@@ -22,6 +22,12 @@
         <label for="usr_keresztnev">Keresztnév</label>
     </div>
     <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="user.usr_forignmessage" name="usr_forignmessage"
+               placeholder=" " value="<%= typeof user === 'undefined' ? '' : user.usr_forignmessage %>">
+        <label for="usr_forignmessage">Jelszó emlékeztető</label>
+    </div>
+
+    <div class="form-floating mb-3">
         <input type="password" class="form-control"  id="password" name="usr_password" required>
         <label for="password">Jelszó:</label>
     </div>
