@@ -27,6 +27,7 @@
                                 <td>
                                     <a href="/logout" class="btn btn-primary btn-sm">Logout</a>
                                     <a href="/" class="btn btn-primary btn-sm">Home</a>
+                                    <a href="/alltwitters" class="btn btn-primary btn-sm">Összes üzenet</a>
                                     <a href="/profil" class="btn btn-primary btn-sm">Profil</a>
                                 </td>
                             </tr>
@@ -38,6 +39,7 @@
                         <tr>
                             <td>
                                 <a href="/" class="btn btn-primary btn-sm">Home</a>
+                                <a href="/alltwitters" class="btn btn-primary btn-sm">Összes üzenet</a>
                                 <a href="/login" class="btn btn-primary btn-sm">Login</a>
                             </td>
                             <%- typeof session_userId === 'undefined' ? include('regAction') : '' %>
@@ -47,6 +49,7 @@
                     <tr>
                         <td>
                             <a href="/" class="btn btn-primary btn-sm">Home</a>
+                            <a href="/alltwitters" class="btn btn-primary btn-sm">Összes üzenet</a>
                             <a href="/login" class="btn btn-primary btn-sm">Login</a>
                         </td>
                         <%- typeof session_userId === 'undefined' ? include('regAction') : '' %>

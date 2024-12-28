@@ -1,6 +1,3 @@
-const uuid = require('uuid'),
- swaggerJSDoc = require('swagger-jsdoc'),
-swaggerUi = require('swagger-ui-express');
 const  session = require( '../middlewares/session/session.js');
 const  logoutMW = require( '../middlewares/session/logoutMW');
 const   renderMW  = require( '../middlewares/renderMW.js');
@@ -57,7 +54,7 @@ const getTwitterMW = require('../middlewares/getTwitterMW');
     app.get('/alltwitters',
         authMW(),
         getAllTwittersMW(),
-        renderMW( 'twitterList'));
+        renderMW( 'twitterAllList'));
         //(req, res, next) => res.json(res.locals.todo));
 
     app.get('/newtwitter',

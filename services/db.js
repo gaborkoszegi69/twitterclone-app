@@ -1,7 +1,11 @@
 const loki = require('lokijs');
+const {mkdirp} = require("mkdirp");
+let datapath =  __dirname + '/../Data/';
+const made = mkdirp.sync(datapath);
+console.log(`made directories, starting with ${made}`);
 
- db =  new loki(__dirname + '/../Data/users.db');
- dbtwitter =  new loki(__dirname + '/../Data/twitters.db');
+ db =  new loki(datapath + 'users.db');
+ dbtwitter =  new loki(datapath + 'twitters.db');
 function  initDatabase(cb) {
 
     db.loadDatabase({}, err => {

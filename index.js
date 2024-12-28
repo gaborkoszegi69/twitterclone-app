@@ -5,14 +5,13 @@ var session = require('express-session');
 const {initDatabase} = require('./services/db');
 const app = express();
 const bodyParser = require('body-parser');
-var dotenv = require('dotenv')
+const dotenv = require('dotenv')
 const loki = require("lokijs");
 dotenv.config()
 let userModel =false;
 let twitterModel =false;
 let db =  false;
 let dbtwitter =  false;
-
 app.listen(process.env.PORT, () => {
     console.log('Server is running on port '+process.env.PORT);
 });

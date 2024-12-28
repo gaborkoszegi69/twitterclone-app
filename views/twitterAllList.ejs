@@ -1,0 +1,37 @@
+<%- include('header') %>
+<div class="form-floating flex-fill mb-2">
+    <input type="text" class="form-control form-control-sm" id="s" name="s" placeholder=" ">
+    <label for="s">Search</label>
+    </div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Felhasználó</th>
+        <th scope="col">Üzenet</th>
+        <th scope="col">&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% twitters.forEach( item => { %>
+        <tr>
+        <td><%=   item.twtr_usr_name %></td>
+        <td><%= item.twtr_message %></td>
+        <td>
+        <% if (typeof session_userId != 'undefined' ) { %>
+        <% if (session_userId === item.twtr_usr_id) { %>
+        <a href="/msg/edit/<%= item.twtr_id %>" class="btn btn-primary btn-sm">Edit</a>
+        <% } %>
+        <% if (session_userId === item.twtr_usr_id) { %>
+        <a href="/msg/delete/<%= item.twtr_id %>" class="btn btn-danger btn-sm">Delete</a>
+        <% } %>
+        <% } %>
+    </td>
+</tr>
+<% }) %>
+</tbody>
+</table>
+<% if (typeof session_userId != 'undefined' ) { %>
+    <%- typeof session_userId === 'undefined' ? '' : include('newTitterButton') %>
+<% } %>
+<%- include('footer') %>
